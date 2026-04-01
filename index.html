@@ -76,6 +76,35 @@
                 transform: translateY(-16px);
             }
         }
+
+        /*
+          Mobile: badge → title → photo → bio → CTA (flex order + display:contents on left column).
+          Desktop (md+): classic row — text stack left, portrait right (matches original flex layout).
+        */
+        @media (max-width: 767px) {
+            .hero-left-column {
+                display: contents;
+            }
+        }
+
+        .hero-portrait {
+            width: min(14rem, 82vw);
+            height: min(14rem, 82vw);
+            flex-shrink: 0;
+        }
+
+        .hero-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (min-width: 768px) {
+            .hero-portrait {
+                width: 14rem;
+                height: 14rem;
+            }
+        }
     </style>
 </head>
 
@@ -94,29 +123,31 @@
     </header>
 
     <main>
-        <section id="home" class="body-font overflow-hidden">
+        <section id="home" class="body-font overflow-hidden relative">
+            <div class="hero-glow hero-glow-left"></div>
+            <div class="hero-glow hero-glow-right"></div>
             <div
-                class="container mx-auto flex px-5 pt-12 pb-20 md:pt-14 md:pb-24 md:flex-row flex-col items-center relative">
-                <div class="hero-glow hero-glow-left"></div>
-                <div class="hero-glow hero-glow-right"></div>
+                class="container mx-auto flex flex-col md:flex-row md:items-center px-5 pt-12 pb-12 md:pt-14 md:pb-14 md:pr-10 lg:pr-16 gap-4 md:gap-8">
                 <div
-                    class="reveal lg:flex-grow md:w-1/2 lg:pr-16 md:pr-10 flex flex-col md:items-start md:text-left mb-12 md:mb-0 items-center text-center">
+                    class="hero-left-column lg:flex-grow md:w-1/2 lg:pr-16 md:pr-10 flex flex-col md:items-start md:text-left mb-0 md:mb-0 items-center text-center">
                     <p
-                        class="inline-block px-4 py-1 text-xs tracking-wide font-semibold rounded-full bg-indigo-100 text-indigo-700 mb-4">
+                        class="reveal order-1 md:order-none inline-block px-4 py-1 text-xs tracking-wide font-semibold rounded-full bg-indigo-100 text-indigo-700 mb-0">
                         SOFTWARE ENGINEER • FLUTTER • AI
                     </p>
-                    <h1 class="title-font sm:text-5xl text-4xl mb-4 font-extrabold text-gray-900 leading-tight">
+                    <h1
+                        class="reveal order-2 md:order-none title-font sm:text-5xl text-4xl mt-4 mb-2 md:mb-4 font-extrabold text-gray-900 leading-tight">
                         Building reliable products with modern UI and clean code.
                     </h1>
-                    <p class="mb-8 leading-relaxed text-lg text-gray-600">
+                    <p
+                        class="reveal order-4 md:order-none mb-6 md:mb-8 leading-relaxed text-lg text-gray-600 max-w-xl">
                         Hi, I am <span class="font-semibold text-gray-900">Ankit Pratap Samrat</span>, a software
                         developer focused on
                         creating smooth digital experiences. Currently, I contribute at
-                        <a href="https://www.appbenny.com/about" class="text-indigo-600 font-medium underline"
-                            target="_blank">Benny</a>,
+                        <a href="https://chaiomi.com/" class="text-indigo-600 font-medium underline"
+                            target="_blank">Chaiomi</a>,
                         where I work on practical solutions that improve performance and user experience.
                     </p>
-                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                    <div class="reveal order-5 md:order-none flex flex-wrap justify-center md:justify-start gap-4 w-full">
                         <a href="https://github.com/ankitpsamrat" target="_blank" rel="noopener noreferrer"
                             class="inline-flex items-center text-white bg-black border-0 py-3 px-7 focus:outline-none hover:bg-gray-800 rounded-full text-base transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 mr-2"
@@ -129,17 +160,17 @@
                         </a>
                     </div>
                 </div>
-                <div class="reveal lg:max-w-xs lg:w-full md:w-1/2 w-3/5 flex justify-center">
-                    <div class="lift-card w-56 h-56 rounded-full">
-                        <img class="object-cover object-center rounded-full w-56 h-56 shadow-2xl ring-4 ring-white"
-                            alt="Ankit portrait" src="my pic.jpg">
+                <div
+                    class="reveal order-3 md:order-none lg:max-w-xs lg:w-full md:w-1/2 w-full flex justify-center mb-2 md:mb-0">
+                    <div class="lift-card hero-portrait rounded-full overflow-hidden shadow-2xl ring-4 ring-white">
+                        <img class="object-cover object-center rounded-full" alt="Ankit portrait" src="mypic.jpeg">
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="body-font">
-            <div class="container px-5 pt-6 pb-14 md:pt-10 md:pb-20 mx-auto">
+            <div class="container px-5 pt-3 pb-14 md:pt-5 md:pb-20 mx-auto">
                 <div class="text-center mb-10 reveal">
                     <span
                         class="inline-flex items-center px-4 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-indigo-100 text-indigo-700">
@@ -177,7 +208,7 @@
                             <span
                                 class="mr-3 inline-flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100 text-indigo-700">💻</span>Platforms
                         </h3>
-                        <p class="text-base text-gray-600">Android, iOS, Windows, Linux and cross-platform workflows.
+                        <p class="text-base text-gray-600">Android, iOS, Windows, Linux.
                         </p>
                     </div>
                     <div
@@ -187,24 +218,8 @@
                                 class="mr-3 inline-flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100 text-indigo-700">☁️</span>Cloud
                             & Tools
                         </h3>
-                        <p class="text-base text-gray-600">Git, GitHub, Jira, Bitbucket and Netlify deployment.</p>
+                        <p class="text-base text-gray-600">Git, GitHub, Jira, Bitbucket, Netlify.</p>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="body-font">
-            <div class="container px-5 py-16 mx-auto">
-                <div
-                    class="reveal rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-8 md:p-10 text-center">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-3">Always learning. Always shipping.</h2>
-                    <p class="max-w-3xl mx-auto text-indigo-100 leading-relaxed">
-                        I believe in consistent improvement and collaboration. Every project helps me become a better
-                        engineer,
-                        communicator, and teammate. I am grateful for my mentors, family, and friends whose support
-                        continues to
-                        shape my professional journey.
-                    </p>
                 </div>
             </div>
         </section>
@@ -215,8 +230,8 @@
             <p class="text-sm text-gray-500">
                 © 2026 TERMS & POLICIES.
             </p>
-            <span class="inline-flex sm:ml-auto sm:mt-0 mt-3 justify-center sm:justify-start">
-                <a class="ml-3 text-blue-500 hover:opacity-80 transition"
+            <span class="inline-flex sm:ml-auto sm:mt-0 mt-3 justify-center sm:justify-start gap-3">
+                <a class="text-blue-500 hover:opacity-80 transition"
                     href="https://www.linkedin.com/in/ankitpsamrat/" target="_blank" rel="noopener noreferrer">
                     <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                         stroke-width="0" class="w-6 h-6" viewBox="0 0 24 24">
@@ -226,7 +241,7 @@
                         <circle cx="4" cy="4" r="2" stroke="none"></circle>
                     </svg>
                 </a>
-                <a class="ml-3 text-pink-600 hover:opacity-80 transition" href="https://www.instagram.com/ankitpsamrat/"
+                <a class="text-pink-600 hover:opacity-80 transition" href="https://www.instagram.com/ankitpsamrat/"
                     target="_blank" rel="noopener noreferrer">
                     <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                         stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
@@ -241,7 +256,7 @@
                         <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
                     </svg>
                 </a>
-                <a class="ml-3 text-gray-700 hover:opacity-80 transition" href="https://www.twitter.com/ankitpsamrat"
+                <a class="text-gray-700 hover:opacity-80 transition" href="https://www.twitter.com/ankitpsamrat"
                     target="_blank" rel="noopener noreferrer">
                     <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         class="w-6 h-6" viewBox="0 0 24 24">
